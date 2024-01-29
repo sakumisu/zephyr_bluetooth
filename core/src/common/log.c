@@ -12,10 +12,8 @@
  * in a single printk call.
  */
 
-#include <stddef.h>
-#include <zephyr/types.h>
 #include <zephyr.h>
-#include <sys/util.h>
+
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/uuid.h>
 #include <bluetooth/hci.h>

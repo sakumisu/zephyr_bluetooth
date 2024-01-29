@@ -182,6 +182,33 @@ k_tid_t k_thread_create(const char *name,
 				  int prio);
 
 /**
+ * @brief Abort a thread.
+ *
+ * This routine permanently stops execution of @a thread. The thread is taken
+ * off all kernel queues it is part of (i.e. the ready queue, the timeout
+ * queue, or a kernel object wait queue). However, any kernel resources the
+ * thread might currently own (such as mutexes or memory blocks) are not
+ * released. It is the responsibility of the caller of this routine to ensure
+ * all necessary cleanup is performed.
+ *
+ * After k_thread_abort() returns, the thread is guaranteed not to be
+ * running or to become runnable anywhere on the system.  Normally
+ * this is done via blocking the caller (in the same manner as
+ * k_thread_join()), but in interrupt context on SMP systems the
+ * implementation is required to spin for threads that are running on
+ * other CPUs.  Note that as specified, this means that on SMP
+ * platforms it is possible for application code to create a deadlock
+ * condition by simultaneously aborting a cycle of threads using at
+ * least one termination from interrupt context.  Zephyr cannot detect
+ * all such conditions.
+ *
+ * @param thread ID of thread to abort.
+ *
+ * @return N/A
+ */
+void k_thread_abort(k_tid_t thread);
+
+/**
  * @brief Yield the current thread.
  *
  * This routine causes the current thread to yield execution to another
@@ -244,6 +271,10 @@ static inline uint64_t sys_clock_timeout_end_calc(k_timeout_t timeout)
 unsigned int irq_lock(void);
 
 void irq_unlock(unsigned int key);
+
+bool k_is_in_isr(void);
+
+void k_sleep(uint32_t ms);
 
 static inline k_spinlock_key_t k_spin_lock(struct k_spinlock *lock)
 {

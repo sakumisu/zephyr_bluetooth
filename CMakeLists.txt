@@ -1,12 +1,13 @@
 add_library(zephyr_bluetooth STATIC)
 
-# set(CONFIG_BT_TINYCRYPT_ECC 1)
 set(CONFIG_BT_BROADCASTER 1)
 set(CONFIG_BT_OBSERVER 1)
 set(CONFIG_BT_HOST_CRYPTO 1)
 set(CONFIG_BT_CONN 1)
-# set(CONFIG_BT_ECC 1)
-# set(CONFIG_BT_SMP 1)
+set(CONFIG_BT_ECC 1)
+set(CONFIG_BT_SMP 1)
+set(CONFIG_BT_HOST_CCM 1)
+set(CONFIG_BT_RPA 1)
 
 target_include_directories(zephyr_bluetooth PUBLIC
 core/include 
@@ -25,6 +26,7 @@ osal/freertos/k_mem_slab.c
 osal/freertos/k_poll.c
 )
 
+# tinycrypt, including all sources
 target_sources(zephyr_bluetooth PRIVATE
 core/src/tinycrypt/source/aes_decrypt.c
 core/src/tinycrypt/source/aes_encrypt.c
@@ -60,7 +62,7 @@ core/src/common/rpa.c
 endif()
 
 # host
-if(CONFIG_BT_TINYCRYPT_ECC)
+if(CONFIG_BT_ECC)
 target_sources(zephyr_bluetooth PRIVATE
 core/src/host/hci_ecc.c
 )
@@ -179,4 +181,44 @@ core/src/host/direction.c
 )
 endif()
 
-target_sources(zephyr_bluetooth PRIVATE zephyr_init.c)
+if(CONFIG_BT_DIS)
+target_sources(zephyr_bluetooth PRIVATE
+core/src/services/dis.c
+)
+endif()
+
+if(CONFIG_BT_BAS)
+target_sources(zephyr_bluetooth PRIVATE
+core/src/services/bas.c
+)
+endif()
+
+if(CONFIG_BT_HRS)
+target_sources(zephyr_bluetooth PRIVATE
+core/src/services/hrs.c
+)
+endif()
+
+if(CONFIG_BT_TPS)
+target_sources(zephyr_bluetooth PRIVATE
+core/src/services/tps.c
+)
+endif()
+
+if(CONFIG_BT_OTS)
+target_sources(zephyr_bluetooth PRIVATE
+core/src/services/ots/ots.c
+core/src/services/ots/ots_l2cap.c
+core/src/services/ots/ots_obj_manager.c
+core/src/services/ots/ots_oacp.c
+core/src/services/ots/ots_olcp.c
+)
+endif()
+
+if(CONFIG_BT_OTS_DIR_LIST_OBJ)
+target_sources(zephyr_bluetooth PRIVATE
+core/src/services/ots_dir_list.c
+)
+endif()
+
+target_sources(zephyr_bluetooth PRIVATE zephyr_init.c zephyr_demo_init.c)

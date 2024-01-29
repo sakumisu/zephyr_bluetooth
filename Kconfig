@@ -16,22 +16,6 @@ config NET_BUF_USER_DATA_SIZE
 	  Amount of memory reserved in each network buffer for user data. In
 	  most cases this can be left as the default value.
 
-config NET_BUF_RX_COUNT
-	int "How many network buffers are allocated for receiving data"
-	default 36 if NET_L2_ETHERNET
-	default 16
-	help
-	  Each data buffer will occupy CONFIG_NET_BUF_DATA_SIZE + smallish
-	  header (sizeof(struct net_buf)) amount of data.
-
-config NET_BUF_TX_COUNT
-	int "How many network buffers are allocated for sending data"
-	default 36 if NET_L2_ETHERNET
-	default 16
-	help
-	  Each data buffer will occupy CONFIG_NET_BUF_DATA_SIZE + smallish
-	  header (sizeof(struct net_buf)) amount of data.
-
 config NET_BUF_LOG
 	bool "Network buffer logging"
 	select LOG
@@ -92,5 +76,5 @@ config BT_CTLR_CRYPTO
 		Use random number generation and AES encryption support functions
 		provided by the controller.
 
-source "core/src/tinycrypt/Kconfig"
+#source "core/src/tinycrypt/Kconfig"
 source "core/src/Kconfig"

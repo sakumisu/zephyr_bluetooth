@@ -5797,6 +5797,8 @@ int bt_smp_init(void)
 		.func           = bt_smp_pkey_ready,
 	};
 
+	k_sem_init(&sc_local_pkey_ready, 0, 1);
+
 	sc_supported = le_sc_supported();
 	if (IS_ENABLED(CONFIG_BT_SMP_SC_PAIR_ONLY) && !sc_supported) {
 		BT_ERR("SC Pair Only Mode selected but LE SC not supported");

@@ -7,6 +7,7 @@ extern uint32_t _net_buf_pool_list_end;
 extern struct k_sem g_poll_sem;
 extern struct k_fifo free_tx;
 
+extern int init_mem_slab_module(void);
 extern void k_poll_init(void);
 extern void k_sys_work_q_init(void);
 
@@ -17,6 +18,8 @@ void zephyr_init(void)
     for (pool = (struct net_buf_pool *)&_net_buf_pool_list_start; pool < (struct net_buf_pool *)&_net_buf_pool_list_end; pool++) {
         k_lifo_init(&pool->free);
     }
+
+    init_mem_slab_module();
 
     k_sem_init(&g_poll_sem, 0, 1);
 

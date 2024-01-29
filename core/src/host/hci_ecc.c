@@ -351,6 +351,7 @@ int default_CSPRNG(uint8_t *dst, unsigned int len)
 
 void bt_hci_ecc_init(void)
 {
+	k_sem_init(&cmd_sem, 0, 1);
 	k_thread_create("BT ECC", ecc_thread_stack,
 			K_KERNEL_STACK_SIZEOF(ecc_thread_stack), ecc_thread, NULL, K_PRIO_PREEMPT(10));
 }

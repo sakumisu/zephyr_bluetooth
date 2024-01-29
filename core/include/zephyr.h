@@ -2,6 +2,8 @@
 #define ZEPHYR_INCLUDE_H_
 
 #define CONFIG_RISCV
+#define CONFIG_ASSERT_VERBOSE
+#define __ASSERT_ON 2
 
 #include <bt_config.h>
 
@@ -28,8 +30,7 @@
 #include <sys/atomic.h>
 #include <linker/sections.h>
 
-#define __ASSERT_ON 0
-
+// clang-format off
 #define SYS_PORT_TRACING_FUNC(type, func, ...) do { } while (false)
 #define SYS_PORT_TRACING_FUNC_ENTER(type, func, ...) do { } while (false)
 #define SYS_PORT_TRACING_FUNC_BLOCKING(type, func, ...) do { } while (false)
@@ -39,19 +40,24 @@
 #define SYS_PORT_TRACING_OBJ_FUNC_ENTER(obj_type, func, obj, ...) do { } while (false)
 #define SYS_PORT_TRACING_OBJ_FUNC_BLOCKING(obj_type, func, obj, ...) do { } while (false)
 #define SYS_PORT_TRACING_OBJ_FUNC_EXIT(obj_type, func, obj, ...) do { } while (false)
+// clang-format on
 
-#define K_TIMEOUT_EQ(a, b) ((a) == (b))
-#define Z_TIMEOUT_TICKS(t) (t)
-#define K_PRIO_COOP(x)   (x)
+#define K_TIMEOUT_EQ(a, b)       ((a) == (b))
+#define Z_TIMEOUT_TICKS(t)       (t)
+#define K_PRIO_COOP(x)           (x)
+#define K_PRIO_PREEMPT(x)        (x)
+#define k_ticks_to_ms_floor32(x) x
 
-#define K_FOREVER        0xffffffff
-#define K_NO_WAIT        0
+#define K_FOREVER                0xffffffff
+#define K_NO_WAIT                0
 
-#define MSEC_PER_SEC     1000
-#define K_MSEC(ms)       (ms)
-#define K_SECONDS(s)     K_MSEC((s)*MSEC_PER_SEC)
-#define K_MINUTES(m)     K_SECONDS((m)*60)
-#define K_HOURS(h)       K_MINUTES((h)*60)
+#define MSEC_PER_SEC             1000
+#define K_MSEC(ms)               (ms)
+#define K_SECONDS(s)             K_MSEC((s)*MSEC_PER_SEC)
+#define K_MINUTES(m)             K_SECONDS((m)*60)
+#define K_HOURS(h)               K_MINUTES((h)*60)
+
+#define printk                   printf
 
 typedef int32_t k_ticks_t;
 typedef uint32_t k_timeout_t;
