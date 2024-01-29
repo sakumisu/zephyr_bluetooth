@@ -6,13 +6,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <stdio.h>
-#include <stddef.h>
-#include <errno.h>
-
 #include <zephyr.h>
-#include <sys/printk.h>
-#include <sys/byteorder.h>
 
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/hci.h>
@@ -263,7 +257,7 @@ BT_CONN_CB_DEFINE(conn_callbacks) = {
 	.disconnected = disconnected,
 };
 
-void main(void)
+void demo_central_ht(void)
 {
 	int err;
 
