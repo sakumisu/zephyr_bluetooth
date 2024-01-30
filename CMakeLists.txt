@@ -9,6 +9,16 @@ set(CONFIG_BT_SMP 1)
 set(CONFIG_BT_HOST_CCM 1)
 set(CONFIG_BT_RPA 1)
 
+# set(CONFIG_BT_BREDR 1)
+# set(CONFIG_BT_RFCOMM 1)
+# set(CONFIG_BT_HFP_HF 1)
+
+set(CONFIG_BT_DIS 1)
+set(CONFIG_BT_BAS 1)
+set(CONFIG_BT_HRS 1)
+set(CONFIG_BT_TPS 1)
+# set(CONFIG_BT_OTS 1)
+
 target_include_directories(zephyr_bluetooth PUBLIC
 core/include 
 core/src 

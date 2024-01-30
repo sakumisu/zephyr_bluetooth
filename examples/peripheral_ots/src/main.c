@@ -4,10 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <zephyr/types.h>
-#include <string.h>
-#include <errno.h>
-#include <sys/printk.h>
 #include <zephyr.h>
 
 #include <bluetooth/bluetooth.h>
@@ -260,7 +256,7 @@ static int ots_init(void)
 	return 0;
 }
 
-void main(void)
+void demo_peripheral_ots(void)
 {
 	int err;
 

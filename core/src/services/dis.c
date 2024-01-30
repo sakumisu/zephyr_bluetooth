@@ -10,14 +10,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <zephyr/types.h>
-#include <stddef.h>
-#include <string.h>
-#include <errno.h>
 #include <zephyr.h>
-#include <init.h>
-
-#include <settings/settings.h>
 
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/hci.h>

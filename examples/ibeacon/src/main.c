@@ -4,10 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <zephyr/types.h>
-#include <stddef.h>
-#include <sys/printk.h>
-#include <sys/util.h>
+#include <zephyr.h>
 
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/hci.h>
@@ -60,7 +57,7 @@ static void bt_ready(int err)
 	printk("iBeacon started\n");
 }
 
-void main(void)
+void demo_ibeacon(void)
 {
 	int err;
 

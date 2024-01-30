@@ -6,10 +6,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <zephyr/types.h>
-#include <stddef.h>
-#include <sys/printk.h>
-#include <sys/util.h>
+#include <zephyr.h>
 
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/hci.h>
@@ -26,7 +23,7 @@ static void scan_cb(const bt_addr_le_t *addr, int8_t rssi, uint8_t adv_type,
 	mfg_data[2]++;
 }
 
-void main(void)
+void demo_scan_adv(void)
 {
 	struct bt_le_scan_param scan_param = {
 		.type       = BT_HCI_LE_SCAN_PASSIVE,

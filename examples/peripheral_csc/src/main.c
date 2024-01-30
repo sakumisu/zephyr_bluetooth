@@ -6,14 +6,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <stdbool.h>
-#include <zephyr/types.h>
-#include <stddef.h>
-#include <string.h>
-#include <errno.h>
-#include <random/rand32.h>
-#include <sys/printk.h>
-#include <sys/byteorder.h>
 #include <zephyr.h>
 
 #include <bluetooth/bluetooth.h>
@@ -304,7 +296,7 @@ static uint16_t lcet; /* Last Crank Event Time */
 static void csc_simulation(void)
 {
 	static uint8_t i;
-	uint32_t rand = sys_rand32_get();
+	uint32_t rand = random();
 	bool nfy_crank = false, nfy_wheel = false;
 
 	/* Measurements don't have to be updated every second */
@@ -396,7 +388,7 @@ static void bas_notify(void)
 	bt_bas_set_battery_level(battery_level);
 }
 
-void main(void)
+void demo_peripheral_csc(void)
 {
 	int err;
 

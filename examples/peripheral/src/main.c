@@ -6,15 +6,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <zephyr/types.h>
-#include <stddef.h>
-#include <string.h>
-#include <errno.h>
-#include <sys/printk.h>
-#include <sys/byteorder.h>
 #include <zephyr.h>
-
-#include <settings/settings.h>
 
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/hci.h>
@@ -324,7 +316,7 @@ static void hrs_notify(void)
 	bt_hrs_notify(heartrate);
 }
 
-void main(void)
+void demo_peripheral(void)
 {
 	struct bt_gatt_attr *vnd_ind_attr;
 	char str[BT_UUID_STR_LEN];

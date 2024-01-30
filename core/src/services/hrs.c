@@ -8,12 +8,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <zephyr/types.h>
-#include <stddef.h>
-#include <string.h>
-#include <errno.h>
 #include <zephyr.h>
-#include <init.h>
 
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/hci.h>
@@ -50,7 +45,7 @@ LOG_MODULE_REGISTER(hrs);
 	(BT_GATT_PERM_READ_ENCRYPT | BT_GATT_PERM_WRITE_ENCRYPT) :	\
 	(BT_GATT_PERM_READ | BT_GATT_PERM_WRITE))			\
 
-static uint8_t hrs_blsc;
+static uint8_t hrs_blsc = 0x01;
 
 static void hrmc_ccc_cfg_changed(const struct bt_gatt_attr *attr, uint16_t value)
 {
@@ -83,6 +78,7 @@ BT_GATT_SERVICE_DEFINE(hrs_svc,
 			       NULL, NULL, NULL),
 );
 
+#if 0
 static int hrs_init(const struct device *dev)
 {
 	ARG_UNUSED(dev);
@@ -91,6 +87,7 @@ static int hrs_init(const struct device *dev)
 
 	return 0;
 }
+#endif
 
 int bt_hrs_notify(uint16_t heartrate)
 {
@@ -105,4 +102,4 @@ int bt_hrs_notify(uint16_t heartrate)
 	return rc == -ENOTCONN ? 0 : rc;
 }
 
-SYS_INIT(hrs_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
+//SYS_INIT(hrs_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);

@@ -8,7 +8,7 @@
 
 int init_central(void);
 
-void main(void)
+void demo_central_multilink(void)
 {
 	(void)init_central();
 }

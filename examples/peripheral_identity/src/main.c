@@ -8,7 +8,7 @@
 
 int init_peripheral(void);
 
-void main(void)
+void demo_peripheral_identity(void)
 {
 	(void)init_peripheral();
 }
