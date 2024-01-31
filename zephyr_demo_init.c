@@ -1,5 +1,6 @@
 #include <zephyr.h>
 
+#define LOG_MODULE_NAME demo
 #include <common/log.h>
 
 struct bluetooth_demo {

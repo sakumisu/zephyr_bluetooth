@@ -46,36 +46,41 @@
 #define _BT_COLOR_HDR(n) printf("\033[" #n "m")
 #define _BT_COLOR_END    printf("\033[0m")
 
-#define bt_print(color_n, fmt, ...)           \
+#define bt_print(_name, color_n, fmt, ...)           \
     do {                                         \
         _BT_COLOR_HDR(color_n);               \
-        printf(fmt"\r\n", ##__VA_ARGS__); \
+        printf("%s: "fmt"\r\n", #_name, ##__VA_ARGS__); \
         _BT_COLOR_END;                        \
     } while (0)
 
 #if (CONFIG_BT_LOG_LEVEL >= LOG_LEVEL_DBG)
-#define LOG_DBG(fmt, ...) bt_print(0, fmt, ##__VA_ARGS__)
+#define BT_DBG_IMPL(_name, fmt, ...) bt_print(_name, 0, fmt, ##__VA_ARGS__)
 #else
-#define LOG_DBG(...)  {}
+#define BT_DBG_IMPL(_name, ...)  {}
 #endif
 
 #if (CONFIG_BT_LOG_LEVEL >= LOG_LEVEL_INF)
-#define LOG_INF(fmt, ...) bt_print(32, fmt, ##__VA_ARGS__)
+#define BT_INFO_IMPL(_name, fmt, ...) bt_print(_name, 32, fmt, ##__VA_ARGS__)
 #else
-#define LOG_INF(...) {}
+#define BT_INFO_IMPL(...) {}
 #endif
 
 #if (CONFIG_BT_LOG_LEVEL >= LOG_LEVEL_WRN)
-#define LOG_WRN(fmt, ...) bt_print(33, fmt, ##__VA_ARGS__)
+#define BT_WARN_IMPL(_name, fmt, ...) bt_print(_name, 33, fmt, ##__VA_ARGS__)
 #else
-#define LOG_WRN(...) {}
+#define BT_WARN_IMPL(_name, ...) {}
 #endif
 
 #if (CONFIG_BT_LOG_LEVEL >= LOG_LEVEL_ERR)
-#define LOG_ERR(fmt, ...) bt_print(31, fmt, ##__VA_ARGS__)
+#define BT_ERR_IMPL(_name, fmt, ...) bt_print(_name, 31, fmt, ##__VA_ARGS__)
 #else
-#define LOG_ERR(...) {}
+#define BT_ERR_IMPL(_name, ...) {}
 #endif
+
+#define LOG_DBG(fmt, ...) BT_DBG_IMPL(LOG_MODULE_NAME, fmt, ##__VA_ARGS__)
+#define LOG_ERR(fmt, ...) BT_ERR_IMPL(LOG_MODULE_NAME, fmt, ##__VA_ARGS__)
+#define LOG_WRN(fmt, ...) BT_WARN_IMPL(LOG_MODULE_NAME, fmt, ##__VA_ARGS__)
+#define LOG_INF(fmt, ...) BT_INFO_IMPL(LOG_MODULE_NAME, fmt, ##__VA_ARGS__)
 
 #define LOG_HEXDUMP_ERR(...) (void) 0
 #define LOG_HEXDUMP_WRN(...) (void) 0
