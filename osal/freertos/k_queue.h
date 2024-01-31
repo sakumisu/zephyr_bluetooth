@@ -7,7 +7,7 @@
 
 struct k_queue {
 	struct k_sem sem;
-	sys_slist_t queue_list;
+	sys_slist_t data_q;
 	sys_dlist_t poll_events;
 };
 
